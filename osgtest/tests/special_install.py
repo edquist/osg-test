@@ -25,6 +25,9 @@ class TestInstall(osgunittest.OSGTestCase):
         core.state['install.orphaned'] = []
         core.state['install.os_updates'] = []
 
+        core.check_system('yum -y install rng-tools'.split(), 'install rng-tools')
+        core.check_system('rngd -r /dev/urandom'.split(), 'run rngd')
+
         # Install packages
         core.state['install.transaction_ids'] = []
         fail_msg = ''
