@@ -30,11 +30,11 @@ class TestInstall(osgunittest.OSGTestCase):
         fail_msg = ''
         pkg_repo_dict = OrderedDict((x, core.options.extrarepos) for x in core.options.packages)
 
-        # FIXME: Install slurm out of contrib if we're running 'All' tests until
-        # SOFTWARE-1733 gives us a generalized solution
-        if 'osg-tested-internal' in pkg_repo_dict:
-            all_slurm_packages = core.SLURM_PACKAGES + ['slurm-slurmdbd']
-            pkg_repo_dict.update(dict((x, ['osg-development']) for x in all_slurm_packages))
+#       # FIXME: Install slurm out of contrib if we're running 'All' tests until
+#       # SOFTWARE-1733 gives us a generalized solution
+#       if 'osg-tested-internal' in pkg_repo_dict:
+#           all_slurm_packages = core.SLURM_PACKAGES + ['slurm-slurmdbd']
+#           pkg_repo_dict.update(dict((x, ['osg-development']) for x in all_slurm_packages))
 
         for pkg, repos in pkg_repo_dict.items():
             # Do not try to re-install packages
