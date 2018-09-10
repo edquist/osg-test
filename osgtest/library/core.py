@@ -63,6 +63,41 @@ SLURM_PACKAGES = ['slurm',
                   'slurm-perlapi',
                   'slurm-slurmdbd']
 
+
+# ------------------------------------------------------------------------------
+# Helper Classes
+# ------------------------------------------------------------------------------
+
+class PackageVersion:
+    """Helper class for a pkg name, comparable to an [E:]V[-R] version string.
+
+       If the Release field is not specified for [E:]V[-R], it will be ignored
+       for the package's evr in the comparison.
+
+       eg:
+            PackageVersion('osg-release')   == '3.4'
+            PackageVersion('xrootd-lcmaps') >= '1.4.0'
+            PackageVersion('voms-server')   <  '2.0.12-3.2
+    """
+
+    def __init__(self, pkgname):
+        e,n,v,r,a = get_package_envra(pkgname)
+        self.evr = e,v,r
+
+    def __cmp__(self, evr):
+        if isinstance(evr, basestring):
+            evr = stringToVersion(evr)
+        else:
+            raise TypeError('PackageVersion compares to "[E:]V[-R]" string')
+
+        if evr[2] is None:
+            pkg_evr = (self.evr[0], self.evr[1], None)
+        else:
+            pkg_evr = self.evr
+
+        return rpm.labelCompare(pkg_evr, evr)
+
+
 # ------------------------------------------------------------------------------
 # Global Functions
 # ------------------------------------------------------------------------------
