@@ -226,7 +226,7 @@ class TestGratia(osgunittest.OSGTestCase):
             core.state['gratia.log.stat'] = core.get_stat(core.config['gratia.log.file'])
             core.log_message('stat.st_ino is: ' + str(core.state['gratia.log.stat'].st_ino))
             core.log_message('stat.st_size is: ' + str(core.state['gratia.log.stat'].st_size))
-        if core.package_version_compare('gratia-probe-gridftp-transfer', '1.17.0-1') >= 0:
+        if core.PackageVersion('gratia-probe-gridftp-transfer') >= '1.17.0-1':
             probe_script = 'gridftp-transfer_meter'
         else:
             probe_script = 'GridftpTransferProbeDriver'
