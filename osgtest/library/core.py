@@ -84,6 +84,9 @@ class PackageVersion:
         e,n,v,r,a = get_package_envra(pkgname)
         self.evr = e,v,r
 
+    def __repr__(self):
+        return "%s:%s-%s" % self.evr
+
     def __cmp__(self, evr):
         if isinstance(evr, basestring):
             evr = stringToVersion(evr)
