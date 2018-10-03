@@ -68,6 +68,11 @@ class TestStartXrootd(osgunittest.OSGTestCase):
         core.skip_ok_unless_installed('xrootd-hdfs')
         hdfs_config = "ofs.osslib /usr/lib64/libXrdHdfs.so"
         files.append(core.config['xrootd.config'], hdfs_config, backup=False)
+        cksums_dir = '/cksums'
+        if not os.path.exists(cksums_dir):
+            os.mkdir(cksums_dir)
+        user = pwd.getpwnam('xrootd')
+        os.chown(cksums_dir, user.pw_uid, user.pw_gid)
 
     def test_03_start_xrootd(self):
         core.skip_ok_unless_installed('xrootd', by_dependency=True)
