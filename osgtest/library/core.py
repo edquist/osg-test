@@ -88,7 +88,7 @@ class PackageVersion:
         return "%s:%s-%s" % self.evr
 
     def __cmp__(self, evr):
-        if isinstance(evr, basestring):
+        if isinstance(evr, str):
             evr = stringToVersion(evr)
         else:
             raise TypeError('PackageVersion compares to "[E:]V[-R]" string')
