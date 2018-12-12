@@ -78,6 +78,11 @@ class PackageVersion:
             PackageVersion('osg-release')   == '3.4'
             PackageVersion('xrootd-lcmaps') >= '1.4.0'
             PackageVersion('voms-server')   <  '2.0.12-3.2
+
+
+       Version ranges can also be tested in the normal python fashion:
+
+            '8.4.0' <= PackageVersion('condor') < '8.8.0'
     """
 
     def __init__(self, pkgname):
