@@ -756,3 +756,12 @@ def elrelease(*releases):
         return run_fn_if_el_release_ok
     return el_release_decorator
 
+
+try:
+    unicode
+except NameError:  # python 3
+    unicode = str
+
+
+def is_string(var):
+    return isinstance(var, (str, unicode))
