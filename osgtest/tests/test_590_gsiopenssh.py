@@ -34,19 +34,19 @@ class TestGSIOpenSSH(osgunittest.OSGTestCase):
             TestGSIOpenSSH.local_path = TestGSIOpenSSH.temp_dir + '/gsissh_get_copied_file.txt'
 
     def test_01_ssh_to_host(self):
-        command = ['gsissh', '-p', self.port, self.hostname, 'echo', 'SUCCESS']
+        command = ['gsissh', '-vvv', '-p', self.port, self.hostname, 'echo', 'SUCCESS']
         stdout, _, fail = core.check_system(command, 'SSH to host', user=True, stdin="")
 
         self.assert_('SUCCESS' in stdout, fail)
 
     def test_02_scp_local_to_remote(self):
-        command = ['gsiscp', '-P', self.port, SOURCE_PATH, self.hostname + ':' + self.remote_path]
+        command = ['gsiscp', '-vvv', '-P', self.port, SOURCE_PATH, self.hostname + ':' + self.remote_path]
         stdout, _, fail = core.check_system(command, 'SCP to host', user=True, stdin="")
 
         self.assert_(os.path.exists(self.remote_path), 'Copied file missing')
 
     def test_03_scp_remote_to_local(self):
-        command = ['gsiscp', '-P', self.port, self.hostname + ':' + self.remote_path, self.local_path]
+        command = ['gsiscp', '-vvv', '-P', self.port, self.hostname + ':' + self.remote_path, self.local_path]
         stdout, _, fail = core.check_system(command, 'SCP from host', user=True, stdin="")
 
         self.assert_(os.path.exists(self.local_path), 'Copied file missing')
